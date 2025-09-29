@@ -7,11 +7,11 @@
     <style></style>
 </head>
 <body>
+<img src="{{ $student->picture }}" alt="photo" width="150" />
 <ul>
     <li>{{ $student->id }}</li>
     <li>{{ $student->name }}</li>
-    <li>{{ $student->price }}</li>
-    <li>{{ $student->image }}</li>
+    <li>{{ $student->price / 100 }}€</li>
     <li>{{ $student->description }}</li>
     <li>{{ $student->created_at }}</li>
     <li>{{ $student->updated_at }}</li>

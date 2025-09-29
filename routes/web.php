@@ -35,6 +35,10 @@ Route::get('/students', function() {
     ]);
 });
 
+Route::get('/students/create', function() {
+    return view('create');
+});
+
 Route::get('/students/{id}', function($id) {
     $student = Student::findOrFail($id);
     return view('show', [
@@ -42,6 +46,23 @@ Route::get('/students/{id}', function($id) {
     ]);
 });
 
+Route::post('/students', function() {
+    // Valider les données
+    request()->validate([
+        'name' => 'required|string|min:4|max:25',
+        'price' => 'required|decimal:2',
+        'picture' => 'nullable',
+        'description' => 'required|string'
+    ]);
+
+    $s = new Student;
+    $s->name = request('name');
+    $s->price = request('price')*100;
+    $s->description = request('description');
+    $s->picture = request('picture');
+    $s->save();
+    return redirect('/students/'.$s->id);
+});
 
 
 
