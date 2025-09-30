@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
@@ -26,43 +27,13 @@ Route::get('home', function () {
 
 
 
-Route::get('/students', function() {
-    // Aller chercher tous les students dans la base
-    $students = Student::all();
-    // Envoyer ces students à une vue
-    return view('index', [
-        'students' => $students
-    ]);
-});
-
-Route::get('/students/create', function() {
-    return view('create');
-});
-
-Route::get('/students/{id}', function($id) {
-    $student = Student::findOrFail($id);
-    return view('show', [
-        'student' => $student
-    ]);
-});
-
-Route::post('/students', function() {
-    // Valider les données
-    request()->validate([
-        'name' => 'required|string|min:4|max:25',
-        'price' => 'required|decimal:2',
-        'picture' => 'nullable',
-        'description' => 'required|string'
-    ]);
-
-    $s = new Student;
-    $s->name = request('name');
-    $s->price = request('price')*100;
-    $s->description = request('description');
-    $s->picture = request('picture');
-    $s->save();
-    return redirect('/students/'.$s->id);
-});
+Route::get('/students',  [StudentController::class, 'index']);
+Route::get('/students/create', [StudentController::class, 'create']);
+Route::get('/students/{id}', [StudentController::class, 'show']);
+Route::post('/students', [StudentController::class, 'store']);
+Route::get('/students/{id}/edit', [StudentController::class, 'edit']);
+Route::patch('/students/{id}', [StudentController::class, 'update']);
+Route::delete('/students/{id}', [StudentController::class, 'destroy']);
 
 
 

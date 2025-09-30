@@ -27,6 +27,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Check more</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,13 @@
                     <td>{{ $student->name }}</td>
                     <td>{{ number_format($student->price / 100, 2) }} €</td>
                     <td><a href="/students/{{ $student->id }}">+ details</a></td>
+                    <td>
+                        <form method="post" action="/students/{{ $student->id }}">
+                            @method('DELETE')
+                            @csrf
+                            <button>Supprimer</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
