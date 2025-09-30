@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $student = new Student();
         $student->name = 'Flavio la patate';
         $student->price = 260;
-        $student->picture = 'https://github.com/bthouverez/SIO1-Trombi-2024/blob/main/MAISSE/photo-Flavio.jpg';
+        $student->picture = 'https://raw.githubusercontent.com/bthouverez/SIO1-Trombi-2024/refs/heads/main/MAISSE/photo-Flavio.jpg';
         $student->description = 'Programmeur d\'exception, à sa façon';
         $student->save();
 

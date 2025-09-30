@@ -12,18 +12,17 @@ class StudentController extends Controller
         // Aller chercher tous les students dans la base
         $students = Student::all();
         // Envoyer ces students à une vue
-        return view('index', [
-            'students' => $students
-        ]);
+        return view('index', compact('students'));
     }
 
-    public function show($id)
+    public function show(Student $student)
     {
-        $student = Student::findOrFail($id);
-        return view('show', [
-            'student' => $student
-        ]);
+        return view('show', compact('student'));
     }
+
+
+
+
     public function create()
     {
         return view('create');
@@ -48,13 +47,12 @@ class StudentController extends Controller
         return redirect('/students/'.$s->id);
     }
 
-    public function edit($id)
+    public function edit(Student $student)
     {
-        $student = Student::findOrFail($id);
         return view('edit', compact('student'));
     }
 
-    public function update($id)
+    public function update(Student $student)
     {
         request()->validate([
             'name' => 'required|string|min:4|max:25',
@@ -63,17 +61,16 @@ class StudentController extends Controller
             'description' => 'required|string'
         ]);
 
-        $s = Student::findOrFail($id);
-        $s->name = request('name');
-        $s->price = request('price')*100;
-        $s->description = request('description');
-        $s->picture = request('picture');
-        $s->save();
-        return redirect('/students/'.$id);
+        $student->name = request('name');
+        $student->price = request('price')*100;
+        $student->description = request('description');
+        $student->picture = request('picture');
+        $student->save();
+        return redirect('/students/'.$student->id);
     }
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        Student::destroy($id);
+        $student->delete();
         return redirect('/students');
     }
 }

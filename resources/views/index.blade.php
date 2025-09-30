@@ -20,23 +20,27 @@
     </style>
 </head>
 <body>
+<a href="/students/create"><button>Créer</button></a>
+<br>
+<br>
+@if($students->count())
     <table>
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Check more</th>
-                <th>Delete</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($students as $student)
+            @forelse ($students as $student)
                 <tr>
                     <td>{{ $student->id }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ number_format($student->price / 100, 2) }} €</td>
-                    <td><a href="/students/{{ $student->id }}">+ details</a></td>
+                    <td><a href="/students/{{ $student->id }}"><button>Détails</button></a></td>
                     <td>
                         <form method="post" action="/students/{{ $student->id }}">
                             @method('DELETE')
@@ -45,8 +49,15 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5">Aucun étudiant enregistré</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
+    @else
+        Aucun étudiant enregistré
+    @endif
 </body>
 </html>

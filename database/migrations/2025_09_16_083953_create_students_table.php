@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
-            $table->string('picture')->nullable();
+            $table->string('picture')->nullable()->default('https://static.vecteezy.com/ti/vecteur-libre/p1/9292244-icone-d-avatar-par-defaut-vecteur-de-l-utilisateur-des-medias-sociaux-vectoriel.jpg');
             $table->text('description');
             $table->timestamps();
         });

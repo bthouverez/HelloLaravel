@@ -20,7 +20,7 @@
         @method('PATCH')
         @csrf
         <input type="text" name="name" value="{{ $student->name }}">
-        <input type="text" name="price" value="{{ $student->price }}">
+        <input type="text" name="price" value="{{ $student->price / 100 }}">
         <textarea name="description">{{ $student->description }}</textarea>
         <input type="text" name="picture" value="{{ $student->picture }}">
         <button>Enregistrer</button>
