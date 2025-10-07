@@ -17,7 +17,8 @@ Route::patch('/students/{student}', [StudentController::class, 'update']);
 Route::delete('/students/{student}', [StudentController::class, 'destroy']);
 
 
-
-
+Route::get('/test', function() {
+    return view('layout_neural_glass');
+});
 
 

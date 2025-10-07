@@ -1,63 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tous les students</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-<a href="/students/create"><button>Créer</button></a>
-<br>
-<br>
+@extends('layout_neural_glass')
+
+@section('title', 'Tous les étudiants')
+
+@section('mainSection')
 @if($students->count())
-    <table>
-        <thead>
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th></th>
-                <th></th>
+                <th scope="col" class="px-6 py-3">
+                    Id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Nom
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Prix
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Détails
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Supprimer
+                </th>
             </tr>
-        </thead>
-        <tbody>
-            @forelse ($students as $student)
-                <tr>
-                    <td>{{ $student->id }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ number_format($student->price / 100, 2) }} €</td>
-                    <td><a href="/students/{{ $student->id }}"><button>Détails</button></a></td>
-                    <td>
-                        <form method="post" action="/students/{{ $student->id }}">
+            </thead>
+            <tbody>
+            @foreach($students as $s)
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $s->id }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ $s->name }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ $s->price / 100 }}€
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="/students/{{ $s->id }}">
+                            <button class="cursor-pointer bg-green-500 hover:bg-green-600 active:bg-green-700 px-4 py-2 rounded text-white">Voir</button>
+                        </a>
+                    </td>
+                    <td class="px-6 py-4">
+                        <form  method="post" action="/students/{{ $s->id }}">
                             @method('DELETE')
                             @csrf
-                            <button>Supprimer</button>
+                            <button class="cursor-pointer bg-red-500 hover:bg-red-600 active:bg-red-700 px-4 py-2 rounded text-white">Supprimer</button>
                         </form>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="5">Aucun étudiant enregistré</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-    @else
-        Aucun étudiant enregistré
-    @endif
-</body>
-</html>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+@else
+    Aucun étudiant enregistré
+@endif
+@endsection
