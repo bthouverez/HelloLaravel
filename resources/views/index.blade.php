@@ -5,8 +5,8 @@
 @section('mainSection')
 @if($students->count())
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-center">
+            <thead class="">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Id
@@ -18,6 +18,9 @@
                     Prix
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Propriétaire
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Détails
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -27,8 +30,8 @@
             </thead>
             <tbody>
             @foreach($students as $s)
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr class="">
+                    <th scope="row" class="">
                         {{ $s->id }}
                     </th>
                     <td class="px-6 py-4">
@@ -38,15 +41,24 @@
                         {{ $s->price / 100 }}€
                     </td>
                     <td class="px-6 py-4">
-                        <a href="/students/{{ $s->id }}">
-                            <button class="cursor-pointer bg-green-500 hover:bg-green-600 active:bg-green-700 px-4 py-2 rounded text-white">Voir</button>
-                        </a>
+                        {{ $s->user->name }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-center">
+                            <a href="/students/{{ $s->id }}" class="cta-button">
+                                Voir
+                            </a>
+                        </p>
                     </td>
                     <td class="px-6 py-4">
                         <form  method="post" action="/students/{{ $s->id }}">
                             @method('DELETE')
                             @csrf
-                            <button class="cursor-pointer bg-red-500 hover:bg-red-600 active:bg-red-700 px-4 py-2 rounded text-white">Supprimer</button>
+                            <p class="text-center">
+                                <button class="cta-button cursor-pointer">
+                                    Supprimer
+                                </button>
+                            </p>
                         </form>
                     </td>
                 </tr>

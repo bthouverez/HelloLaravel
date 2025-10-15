@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,7 +19,15 @@ Route::delete('/students/{student}', [StudentController::class, 'destroy']);
 
 
 Route::get('/test', function() {
-    return view('layout_neural_glass');
+    $s = Student::find(2);
+    dump($s->user); // → User
+
+    $u = User::find(1);
+    dump($u->students); // → tableau de Students
+
+
 });
+
+
 
 
