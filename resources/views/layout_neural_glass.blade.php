@@ -20,6 +20,12 @@
     </style>
 </head>
 <body>
+<p>
+    @auth {{ Auth::user()->name }}
+    @else Non connecté
+    @endauth
+</p>
+
 <!-- Epic Neural Background -->
 <div class="neural-background"></div>
 

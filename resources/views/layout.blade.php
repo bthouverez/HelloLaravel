@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
+
 <nav class="flex justify-between bg-gray-200 p-4">
     <div class="flex gap-4">
         <a href="/students" class="hover:underline
